@@ -1,0 +1,103 @@
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 120%,#5b2a86 0%,#2a1450 45%,#0e0824 100%);color:#fff;font-family:'Quicksand',system-ui,sans-serif;text-align:center;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+#stars{position:fixed;inset:0;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite ease-in-out}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
+.balloon{position:fixed;bottom:-140px;width:56px;height:70px;border-radius:50% 50% 48% 48%;opacity:.9;animation:rise linear forwards;pointer-events:none;z-index:1}
+.balloon:after{content:"";position:absolute;left:50%;top:100%;width:1px;height:60px;background:rgba(255,255,255,.5)}
+@keyframes rise{to{transform:translateY(-120vh) rotate(8deg)}}
+.heart{position:fixed;bottom:-30px;pointer-events:none;z-index:1;animation:rise2 linear forwards}
+@keyframes rise2{to{transform:translateY(-110vh) translateX(30px);opacity:0}}
+
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;transition:opacity .8s,transform .8s;z-index:2}
+.screen.hide{opacity:0;transform:scale(.9);pointer-events:none}
+#s2{clip-path:circle(150% at 50% 50%);transition:clip-path 1.4s ease,opacity .8s,transform .8s}
+#s2.hide{clip-path:circle(0% at 50% 50%)}
+
+h1{font-family:'Pacifico',cursive;font-weight:400;font-size:clamp(2.2rem,8vw,4.5rem);background:linear-gradient(90deg,#ffd86f,#ff7eb3,#7afcff,#ffd86f);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:grad 6s linear infinite}
+@keyframes grad{to{background-position:300%}}
+input{padding:12px 18px;border-radius:30px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit;font-size:1rem;text-align:center;width:min(300px,80vw);outline:none}
+input::placeholder{color:rgba(255,255,255,.55)}
+button{padding:14px 34px;border:0;border-radius:40px;font:700 1.1rem 'Quicksand',sans-serif;color:#3a1668;background:linear-gradient(135deg,#ffd86f,#ff9ac1);cursor:pointer;box-shadow:0 8px 28px rgba(255,150,200,.4);animation:pulse 1.8s infinite}
+button:active{transform:scale(.95)}
+@keyframes pulse{50%{transform:scale(1.07)}}
+
+/* gift box */
+.giftbox{position:relative;width:130px;height:130px;animation:bob 1.6s infinite ease-in-out;cursor:pointer}
+@keyframes bob{50%{transform:translateY(-14px) rotate(-6deg)}}
+.opening .giftbox{animation:none}
+.gb-body{position:absolute;bottom:0;left:10px;right:10px;height:84px;background:linear-gradient(#ff5c97,#d93a78);border-radius:6px}
+.gb-body:before,.gb-lid:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:18px;margin-left:-9px;background:#ffd86f}
+.gb-lid{position:absolute;top:16px;left:0;right:0;height:32px;background:linear-gradient(#ff7eb3,#e8467f);border-radius:6px;z-index:2;transform-origin:left bottom;transition:transform 1s cubic-bezier(.3,1.5,.5,1),opacity 1s}
+.gb-lid:after{content:"🎀";position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:38px}
+.opening .gb-lid{transform:translate(40px,-170px) rotate(40deg);opacity:0}
+.glow{position:absolute;left:50%;top:45%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#fff;opacity:0;pointer-events:none}
+.opening .glow{animation:glow 1.3s .3s forwards}
+@keyframes glow{0%{opacity:1;box-shadow:0 0 20px 10px #fff}100%{opacity:0;box-shadow:0 0 320px 220px #ffd86f}}
+
+/* cake */
+.cake{position:relative;width:min(320px,86vw);height:205px}
+.plate{position:absolute;bottom:0;left:-20px;right:-20px;height:14px;background:#e9e1f5;border-radius:50%}
+.layer{position:absolute;left:50%;transform:translateX(-50%);border-radius:14px 14px 6px 6px}
+.l1{bottom:10px;width:100%;height:70px;background:linear-gradient(#ff8fb8,#ff5c97)}
+.l2{bottom:78px;width:80%;height:56px;background:linear-gradient(#ffe29a,#ffc857)}
+.l1:before,.l2:before{content:"";position:absolute;top:0;left:0;right:0;height:16px;background:#fff;border-radius:14px 14px 50% 50%/14px 14px 100% 100%}
+.candles{position:absolute;inset:0;pointer-events:none}
+.row{position:absolute;left:0;right:0;display:flex;justify-content:center;gap:clamp(7px,2.6vw,13px)}
+.row.r0{bottom:142px}.row.r1{bottom:128px}
+.candle{position:relative;width:6px;height:24px;background:repeating-linear-gradient(135deg,var(--c) 0 4px,#fff 4px 8px);border-radius:2px}
+.flame{position:absolute;bottom:100%;left:50%;width:9px;height:17px;margin-left:-4.5px;background:radial-gradient(ellipse at 50% 70%,#fff6c0,#ffb300 55%,#ff5a00);border-radius:50%/65% 65% 35% 35%;transform-origin:50% 100%;animation:fl .25s infinite alternate;filter:drop-shadow(0 0 6px #ffb300);transition:opacity .4s,transform .4s}
+.out .flame{opacity:0;transform:scale(0)}
+@keyframes fl{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.9,1.1) rotate(3deg)}}
+
+.msg{min-height:7.5em;max-width:520px;font-size:clamp(1.05rem,3.6vw,1.35rem);line-height:1.7;white-space:pre-wrap}
+.msg:after{content:"|";animation:blink 1s infinite}
+.msg.done:after{display:none}
+@keyframes blink{50%{opacity:0}}
+
+/* v3 */
+.screen{overflow-y:auto;justify-content:safe center}
+#s2 h1{font-size:clamp(1.8rem,6vw,3.4rem)}
+.cake{margin-top:20px;flex-shrink:0}
+.msg{min-height:11em;max-width:620px;font-size:clamp(.95rem,3.2vw,1.15rem);padding-bottom:20px}
+#mute{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;z-index:20;width:44px;height:44px;padding:0;font-size:1.2rem;animation:none;background:rgba(255,255,255,.18);box-shadow:none;color:#fff;backdrop-filter:blur(6px)}
+#mute[hidden]{display:none}
+
+/* v4: ảnh + player ẩn */
+#yt{position:fixed;left:-9999px;top:0;width:200px;height:200px}
+.polaroid{flex-shrink:0;width:min(230px,62vw);background:#fff;padding:10px 10px 12px;border-radius:6px;box-shadow:0 14px 40px rgba(0,0,0,.45);opacity:0;transform:rotate(-8deg) scale(.3);transition:transform 1s cubic-bezier(.2,1.4,.4,1),opacity .8s}
+.polaroid[hidden]{display:none}
+.polaroid.show{opacity:1;transform:rotate(-3deg) scale(1)}
+.polaroid img{display:block;width:100%;border-radius:3px}
+.polaroid figcaption{font-family:'Pacifico',cursive;color:#6b2a86;margin-top:8px;font-size:1rem}
+
+/* v5: vừa đúng 1 màn hình, không cuộn */
+html,body{height:100%;height:100dvh;overflow:hidden}
+.screen{position:fixed;inset:0;overflow:hidden;justify-content:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
+#s1 h1{font-size:clamp(1.8rem,min(8vw,7vh),4rem)}
+#s2{justify-content:flex-start}
+#s2 h1{font-size:clamp(1.4rem,min(6vw,4.8vh),3.2rem);line-height:1.25;flex-shrink:0}
+#s2 button{flex-shrink:0}
+.stage{position:relative;flex:1;min-height:0;width:100%}
+.cake{position:absolute;left:50%;top:50%;width:320px;height:205px;margin:0;transform:translate(-50%,-50%) scale(var(--cs,1));transition:opacity .8s,filter .8s}
+.cake.dim{opacity:.3;filter:blur(2px)}
+.row{gap:13px}
+
+/* lời chúc + ảnh phủ lên bánh */
+.reveal{position:absolute;left:50%;top:50%;width:max-content;max-width:94%;display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 18px;border-radius:20px;background:rgba(20,8,48,.62);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(var(--fit,1));transition:opacity .8s}
+.reveal.show{opacity:1}
+.reveal .polaroid{width:auto;padding:8px 8px 10px}
+.reveal .polaroid img{height:min(26vh,230px);width:auto}
+.reveal .msg{min-height:0;padding:0;max-width:520px;font-size:clamp(.8rem,min(3.3vw,2.1vh),1.15rem);line-height:1.6;white-space:pre-wrap}
+.reveal .msg:after{display:none}
+#rest{visibility:hidden}
+#typed:after{content:"|";animation:blink 1s infinite}
+.msg.done #typed:after{display:none}
+@media (orientation:landscape) and (min-width:700px){
+  .reveal{flex-direction:row;gap:24px}
+  .reveal .polaroid img{height:min(46vh,320px)}
+}
+
+/* nút nhạc xuống góc dưới phải để không đè tiêu đề */
+#mute{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);right:14px}
