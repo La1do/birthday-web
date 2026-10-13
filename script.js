@@ -2,10 +2,11 @@ const $ = id => document.getElementById(id);
 const rnd = (a, b) => a + Math.random() * (b - a);
 
 // ===== Cấu hình =====
-const MESSAGE = `Nhân dịp sinh nhật chị Quỳnh Trang, em cầu chúc Cha luôn đồng hành, che chở và ban phước lành dư dật trên từng bước đường của chị. Chúc chị tuổi mới luôn vững vàng đức tin, bình an và tràn đầy niềm vui—nhớ cười thật nhiều mỗi ngày chị nhé! Mong rằng sang năm mới, chị em mình sẽ cùng nhau ăn mừng một sinh nhật thật trọn vẹn và ý nghĩa trong tâm linh!`;
+const MESSAGE = `Nhân dịp sinh nhật chị Quỳnh Trang, em cầu chúc Cha luôn đồng hành, che chở và ban phước lành dư dật trên từng bước đường của chị. Chúc chị tuổi mới luôn vững vàng đức tin, bình an và tràn đầy niềm vui—nhớ cười thật nhiều mỗi ngày chị nhé! Mong rằng sang năm sau, chị cùng các anh em KVB6 mình sẽ cùng nhau ăn mừng một sinh nhật thật trọn vẹn và ý nghĩa trong tâm linh!`;
 const CANDLES = 24;
 const PHOTO_FILE = 'photo.png';        // đổi ảnh: thay file hoặc đổi tên ở đây ('' = không hiện ảnh)
 const PHOTO_CAPTION = 'Chị Quỳnh Trang 💖';
+let selectedPhotoUrl = '';
 // Nhạc nền, ưu tiên: MUSIC_FILE > YOUTUBE_ID > nhạc hộp tự tạo
 const MUSIC_FILE = '';                 // vd: 'music.mp3' (đặt cùng thư mục)
 const YOUTUBE_ID = 'BE0_POJLBp8';      // phần sau v= trong link YouTube ('' = tắt)
@@ -105,6 +106,14 @@ function openGift() {
 }
 $('open').addEventListener('click', openGift);
 $('gift').addEventListener('click', openGift);
+$('photoPick').addEventListener('click', () => $('photoInput').click());
+$('photoInput').addEventListener('change', event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (selectedPhotoUrl) URL.revokeObjectURL(selectedPhotoUrl);
+  selectedPhotoUrl = URL.createObjectURL(file);
+  $('photoPick').textContent = `Đã chọn: ${file.name}`;
+});
 
 // Nến
 const cc = ['#ff6b9d', '#7afcff', '#ffd86f', '#b388ff', '#6bff95', '#ff9a6b'];
@@ -136,6 +145,7 @@ fit();
 
 function showReveal() {
   const p = $('photo'), rv = $('reveal');
+  const photoSrc = selectedPhotoUrl || PHOTO_FILE;
   const go = () => {
     fit();
     requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -145,12 +155,12 @@ function showReveal() {
       setTimeout(typeMsg, 900);
     }));
   };
-  if (!PHOTO_FILE) { go(); return; }
+  if (!photoSrc) { go(); return; }
   const img = $('photoImg');
   img.onerror = () => { p.hidden = true; go(); };
   img.onload = () => { p.hidden = false; go(); };
   $('photoCap').textContent = PHOTO_CAPTION;
-  img.src = PHOTO_FILE;
+  img.src = photoSrc;
 }
 
 let blown = false;
